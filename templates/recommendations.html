@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}My Recommendations{% endblock %}
+{% block content %}
+<h1 class="mb-4">Recommended Training</h1>
+<div class="row">
+    {% for rec in recommendations %}
+    <div class="col-md-6 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ rec.training_resource.title }}</h5>
+                <p class="card-text">{{ rec.training_resource.description or 'No description' }}</p>
+                <p><strong>Provider:</strong> {{ rec.training_resource.provider or 'N/A' }}<br>
+                <strong>Duration:</strong> {{ rec.training_resource.duration_hours or '?' }} hours<br>
+                <strong>Difficulty:</strong> {{ rec.training_resource.difficulty_level or 'beginner' }}</p>
+                {% if rec.training_resource.url %}
+                <a href="{{ rec.training_resource.url }}" target="_blank" class="btn btn-sm btn-primary">Go to Course</a>
+                {% endif %}
+                {% if rec.status == 'pending' %}
+                <a href="{{ url_for('recommendation.complete', rec_id=rec.id) }}" class="btn btn-sm btn-success">Mark Completed</a>
+                {% else %}
+                <span class="badge bg-secondary">Completed</span>
+                {% endif %}
+            </div>
+            <div class="card-footer text-muted">
+                Recommended on {{ rec.recommended_date.strftime('%Y-%m-%d') }}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-info">No recommendations yet. Your admin will generate them based on skill gaps.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

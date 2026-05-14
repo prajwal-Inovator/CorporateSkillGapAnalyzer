@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h1 class="mb-4">Admin Dashboard</h1>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Employees</h5>
+                <p class="card-text display-6">{{ total_employees }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Skills in DB</h5>
+                <p class="card-text display-6">{{ total_skills }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Departments</h5>
+                <p class="card-text display-6">{{ total_departments }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Job Roles</h5>
+                <p class="card-text display-6">{{ total_job_roles }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Recent Employees</h5>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr><th>Code</th><th>Name</th><th>Email</th><th>Department</th></tr>
+            </thead>
+            <tbody>
+                {% for emp in recent_employees %}
+                <tr>
+                    <td>{{ emp.employee_code }}</td>
+                    <td>{{ emp.full_name() }}</td>
+                    <td>{{ emp.email }}</td>
+                    <td>{{ emp.department.name if emp.department else '-' }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4">No employees found.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

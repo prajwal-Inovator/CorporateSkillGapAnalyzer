@@ -1,0 +1,28 @@
+# render.yaml
+# Deploy Corporate Skill Gap Analyzer on Render
+# Documentation: https://render.com/docs/infrastructure-as-code
+
+services:
+  - type: web
+    name: corporate-skill-gap-analyzer
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        # Option 1: Use an external MySQL database (set the value in Render dashboard)
+        # You will need to manually add this environment variable in Render Dashboard
+        # value: mysql+pymysql://username:password@host:port/database_name
+        # Option 2: If using Render's PostgreSQL, change the URI format:
+        # DATABASE_URL: postgresql://... (from Render's PostgreSQL service)
+        sync: false  # Do not auto-generate; user must provide
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    # Optional: health check path
+    healthCheckPath: /
+    # Auto-scaling (free tier has no scaling)
+    plan: free

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Employee Dashboard{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Welcome, {{ employee.first_name }}!</h2>
+        <p class="lead">Your role: {{ employee.job_role.title if employee.job_role else 'Not assigned' }}</p>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5>Skill Readiness Score</h5>
+                <div class="display-4 {% if readiness_score >= 70 %}text-success{% elif readiness_score >= 40 %}text-warning{% else %}text-danger{% endif %}">
+                    {{ readiness_score }}%
+                </div>
+                <small>Required: {{ total_required }} | Owned: {{ owned_skills }} | Missing: {{ missing_skills }}</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Recent Recommendations</div>
+            <div class="card-body">
+                {% if recommendations %}
+                <ul class="list-group">
+                    {% for rec in recommendations %}
+                    <li class="list-group-item">{{ rec.training_resource.title }} - <span class="badge bg-secondary">{{ rec.status }}</span></li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No recommendations yet. Admin will generate them.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Quick Actions</div>
+            <div class="card-body">
+                <a href="{{ url_for('employee.my_skills') }}" class="btn btn-outline-primary w-100 mb-2">Update My Skills</a>
+                <a href="{{ url_for('recommendation.my_recommendations') }}" class="btn btn-outline-success w-100">View All Recommendations</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

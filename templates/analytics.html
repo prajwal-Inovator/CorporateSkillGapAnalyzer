@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Department gaps chart
+        fetch('/analytics/data/department_gaps')
+            .then(res => res.json())
+            .then(data => {
+                new Chart(document.getElementById('deptGapChart'), {
+                    type: 'bar',
+                    data: { labels: data.labels, datasets: [{ label: 'Average Gap Score', data: data.values, backgroundColor: '#0d6efd' }] }
+                });
+            });
+        // Top missing skills
+        fetch('/analytics/data/top_missing_skills')
+            .then(res => res.json())
+            .then(data => {
+                new Chart(document.getElementById('missingSkillsChart'), {
+                    type: 'pie',
+                    data: { labels: data.labels, datasets: [{ data: data.counts, backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'] }] }
+                });
+            });
+        // Readiness distribution
+        fetch('/analytics/data/readiness_distribution')
+            .then(res => res.json())
+            .then(data => {
+                new Chart(document.getElementById('readinessChart'), {
+                    type: 'doughnut',
+                    data: { labels: data.labels, datasets: [{ data: data.counts, backgroundColor: ['#dc3545', '#ffc107', '#0d6efd', '#198754'] }] }
+                });
+            });
+    });
+</script>
+{% endblock %}
+{% block content %}
+<h1 class="mb-4">Analytics Dashboard</h1>
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">Average Skill Gap by Department</div>
+            <div class="card-body"><canvas id="deptGapChart" width="400" height="300"></canvas></div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">Top 5 Missing Skills (Company Wide)</div>
+            <div class="card-body"><canvas id="missingSkillsChart" width="400" height="300"></canvas></div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">Employee Readiness Distribution</div>
+            <div class="card-body"><canvas id="readinessChart" width="400" height="300"></canvas></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
