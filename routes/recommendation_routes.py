@@ -1,7 +1,7 @@
 # routes/recommendation_routes.py
 from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
-from app import db
+from db import db
 from models.employee import Employee
 from models.training_resource import TrainingResource
 from models.employee_recommendation import EmployeeRecommendation

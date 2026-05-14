@@ -1,5 +1,5 @@
 # models/gap_analysis.py
-from app import db
+from db import db
 
 class GapAnalysis(db.Model):
     __tablename__ = 'gap_analysis'

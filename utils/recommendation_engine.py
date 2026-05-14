@@ -4,7 +4,7 @@ Recommendation Engine
 Suggests training resources to employees for skills they are missing.
 """
 
-from app import db
+from db import db
 from models.gap_analysis import GapAnalysis
 from models.training_resource import TrainingResource
 from models.employee_recommendation import EmployeeRecommendation

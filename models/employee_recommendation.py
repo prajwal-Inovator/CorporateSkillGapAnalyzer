@@ -1,5 +1,5 @@
 # models/employee_recommendation.py
-from app import db
+from db import db
 
 class EmployeeRecommendation(db.Model):
     __tablename__ = 'employee_recommendations'

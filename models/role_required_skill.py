@@ -1,5 +1,5 @@
 # models/role_required_skill.py
-from app import db
+from db import db
 
 class RoleRequiredSkill(db.Model):
     __tablename__ = 'role_required_skills'

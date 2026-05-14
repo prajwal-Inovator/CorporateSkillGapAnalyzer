@@ -1,5 +1,5 @@
 # models/employee_skill.py
-from app import db
+from db import db
 
 class EmployeeSkill(db.Model):
     __tablename__ = 'employee_skills'

@@ -4,7 +4,7 @@ Skill Gap Calculation Engine
 Computes missing skills and gap scores for each employee.
 """
 
-from app import db
+from db import db
 from models.employee import Employee
 from models.role_required_skill import RoleRequiredSkill
 from models.employee_skill import EmployeeSkill

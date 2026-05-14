@@ -1,5 +1,5 @@
 # models/department.py
-from app import db
+from db import db
 
 class Department(db.Model):
     __tablename__ = 'departments'

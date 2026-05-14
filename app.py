@@ -2,16 +2,15 @@
 
 import os
 from flask import Flask, render_template, flash, redirect, url_for, session
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager, current_user
 from dotenv import load_dotenv
+from db import db
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Initialize extensions (will be configured after app creation)
-db = SQLAlchemy()
 migrate = Migrate()
 login_manager = LoginManager()
 

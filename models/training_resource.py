@@ -1,5 +1,5 @@
 # models/training_resource.py
-from app import db
+from db import db
 
 class TrainingResource(db.Model):
     __tablename__ = 'training_resources'

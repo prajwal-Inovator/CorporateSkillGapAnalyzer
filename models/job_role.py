@@ -1,5 +1,5 @@
 # models/job_role.py
-from app import db
+from db import db
 
 class JobRole(db.Model):
     __tablename__ = 'job_roles'

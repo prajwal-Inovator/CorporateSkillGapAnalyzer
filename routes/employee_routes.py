@@ -1,7 +1,7 @@
 # routes/employee_routes.py
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from app import db
+from db import db
 from models.employee import Employee
 from models.employee_skill import EmployeeSkill
 from models.skill import Skill

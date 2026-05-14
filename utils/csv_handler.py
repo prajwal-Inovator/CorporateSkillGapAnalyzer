@@ -6,7 +6,7 @@ Uses Python built-in csv parsing.
 """
 
 import csv
-from app import db
+from db import db
 from models.employee import Employee
 from models.department import Department
 from models.job_role import JobRole

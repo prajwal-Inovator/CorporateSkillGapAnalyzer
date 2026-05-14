@@ -4,7 +4,7 @@ Chart Data Generator
 Provides JSON data for frontend charts (department gaps, top missing skills, etc.)
 """
 
-from app import db
+from db import db
 from models.employee import Employee
 from models.department import Department
 from models.gap_analysis import GapAnalysis

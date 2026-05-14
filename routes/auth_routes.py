@@ -1,7 +1,7 @@
 # routes/auth_routes.py
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
-from app import db
+from db import db
 from models.user import User
 from models.employee import Employee
 from models.department import Department
