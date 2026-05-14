@@ -1,0 +1,41 @@
+role_id,role_name,department
+1,Data Analyst,Finance
+2,Business Analyst,Finance
+3,Financial Analyst,Finance
+4,Risk Analyst,Finance
+5,HR Manager,HR
+6,HR Analyst,HR
+7,Talent Acquisition Specialist,HR
+8,L&D Manager,HR
+9,Backend Developer,IT
+10,Frontend Developer,IT
+11,Full Stack Developer,IT
+12,QA Engineer,IT
+13,Software Architect,IT
+14,Mobile Developer,IT
+15,AI Engineer,AI/ML
+16,ML Engineer,AI/ML
+17,Data Scientist,AI/ML
+18,NLP Engineer,AI/ML
+19,Computer Vision Engineer,AI/ML
+20,MLOps Engineer,AI/ML
+21,Cloud Engineer,Cloud
+22,Cloud Architect,Cloud
+23,DevOps Engineer,Cloud
+24,Site Reliability Engineer,Cloud
+25,Platform Engineer,Cloud
+26,Cybersecurity Analyst,Cybersecurity
+27,Penetration Tester,Cybersecurity
+28,Security Engineer,Cybersecurity
+29,SOC Analyst,Cybersecurity
+30,IAM Engineer,Cybersecurity
+31,Marketing Analyst,Marketing
+32,Digital Marketing Specialist,Marketing
+33,SEO Analyst,Marketing
+34,Content Strategist,Marketing
+35,Growth Hacker,Marketing
+36,Database Administrator,IT
+37,BI Developer,Finance
+38,Scrum Master,IT
+39,Product Manager,IT
+40,IT Support Engineer,IT

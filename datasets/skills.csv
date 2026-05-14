@@ -1,0 +1,91 @@
+skill_id,skill_name,category
+1,Python,Programming
+2,Java,Programming
+3,C++,Programming
+4,JavaScript,Programming
+5,TypeScript,Programming
+6,Go,Programming
+7,Rust,Programming
+8,Scala,Programming
+9,R,Programming
+10,Kotlin,Programming
+11,Swift,Programming
+12,PHP,Programming
+13,Ruby,Programming
+14,C#,Programming
+15,Bash Scripting,Programming
+16,MATLAB,Programming
+17,Perl,Programming
+18,Dart,Programming
+19,React,Programming
+20,Node.js,Programming
+21,SQL,Database
+22,MySQL,Database
+23,PostgreSQL,Database
+24,MongoDB,Database
+25,Redis,Database
+26,Cassandra,Database
+27,Oracle DB,Database
+28,Elasticsearch,Database
+29,Firebase,Database
+30,SQLite,Database
+31,DynamoDB,Database
+32,Neo4j,Database
+33,AWS,Cloud
+34,Azure,Cloud
+35,Google Cloud,Cloud
+36,Terraform,Cloud
+37,CloudFormation,Cloud
+38,Serverless,Cloud
+39,OpenStack,Cloud
+40,IBM Cloud,Cloud
+41,DigitalOcean,Cloud
+42,Heroku,Cloud
+43,TensorFlow,AI/ML
+44,PyTorch,AI/ML
+45,Scikit-learn,AI/ML
+46,Keras,AI/ML
+47,OpenCV,AI/ML
+48,NLP,AI/ML
+49,Computer Vision,AI/ML
+50,Reinforcement Learning,AI/ML
+51,MLflow,AI/ML
+52,Hugging Face,AI/ML
+53,LangChain,AI/ML
+54,Generative AI,AI/ML
+55,Power BI,Analytics
+56,Tableau,Analytics
+57,Excel Advanced,Analytics
+58,Looker,Analytics
+59,Google Analytics,Analytics
+60,Apache Spark,Analytics
+61,Hadoop,Analytics
+62,Pandas,Analytics
+63,NumPy,Analytics
+64,Matplotlib,Analytics
+65,Leadership,Soft Skills
+66,Communication,Soft Skills
+67,Problem Solving,Soft Skills
+68,Teamwork,Soft Skills
+69,Time Management,Soft Skills
+70,Critical Thinking,Soft Skills
+71,Agile Methodology,Soft Skills
+72,Project Management,Soft Skills
+73,Docker,DevOps
+74,Kubernetes,DevOps
+75,Jenkins,DevOps
+76,Git,DevOps
+77,CI/CD,DevOps
+78,Ansible,DevOps
+79,Prometheus,DevOps
+80,Grafana,DevOps
+81,Helm,DevOps
+82,ArgoCD,DevOps
+83,Network Security,Security
+84,Penetration Testing,Security
+85,OWASP,Security
+86,SIEM Tools,Security
+87,Cryptography,Security
+88,Ethical Hacking,Security
+89,Firewall Management,Security
+90,Zero Trust Security,Security

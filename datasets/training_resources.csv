@@ -1,0 +1,201 @@
+resource_id,skill_id,course_name,platform,difficulty,duration,course_url
+1,1,Python for Everybody,Coursera,Beginner,5 hours,https://coursera.org/learn/python
+2,1,Complete Python Bootcamp,Udemy,Intermediate,22 hours,https://udemy.com/course/complete-python-bootcamp
+3,1,Python for Data Science,edX,Advanced,16 hours,https://edx.org/course/python-for-data-science
+4,2,Java Programming Masterclass,Udemy,Intermediate,80 hours,https://udemy.com/course/java-the-complete-java-developer-course
+5,2,Object Oriented Programming in Java,Coursera,Beginner,6 hours,https://coursera.org/learn/object-oriented-java
+6,4,The Complete JavaScript Course,Udemy,Beginner,69 hours,https://udemy.com/course/the-complete-javascript-course
+7,4,JavaScript Algorithms,YouTube,Intermediate,10 hours,https://youtube.com/playlist?list=PLn2ipk-jqgZiAHiA70hOxAvNQ7RKS4b5e
+8,5,TypeScript Deep Dive,edX,Intermediate,12 hours,https://edx.org/course/typescript-fundamentals
+9,5,Understanding TypeScript,Udemy,Beginner,15 hours,https://udemy.com/course/understanding-typescript
+10,19,React — The Complete Guide,Udemy,Intermediate,48 hours,https://udemy.com/course/react-the-complete-guide
+11,19,Full Stack React,Coursera,Advanced,20 hours,https://coursera.org/specializations/full-stack-react
+12,19,React JS Crash Course,YouTube,Beginner,2 hours,https://youtube.com/watch?v=w7ejDZ8SWv8
+13,20,Node.js API Masterclass,Udemy,Intermediate,18 hours,https://udemy.com/course/nodejs-api-masterclass
+14,20,The Complete Node.js Developer Course,Udemy,Beginner,35 hours,https://udemy.com/course/the-complete-nodejs-developer-course-2
+15,21,SQL for Data Science,Coursera,Beginner,8 hours,https://coursera.org/learn/sql-for-data-science
+16,21,Advanced SQL for Data Engineers,edX,Advanced,14 hours,https://edx.org/course/advanced-sql
+17,21,SQL Bootcamp,Udemy,Intermediate,9 hours,https://udemy.com/course/the-complete-sql-bootcamp
+18,22,MySQL Bootcamp,Udemy,Beginner,20 hours,https://udemy.com/course/the-ultimate-mysql-bootcamp-go-from-sql-beginner-to-expert
+19,22,MySQL for Beginners,YouTube,Beginner,3 hours,https://youtube.com/watch?v=7S_tz1z_5bA
+20,23,PostgreSQL for Everybody,Coursera,Intermediate,10 hours,https://coursera.org/specializations/postgresql-for-everybody
+21,23,PostgreSQL Tutorial,YouTube,Beginner,4 hours,https://youtube.com/watch?v=qw--VYLpxG4
+22,24,MongoDB Basics,MongoDB University,Beginner,6 hours,https://university.mongodb.com/courses/M001/about
+23,24,MongoDB — The Complete Guide,Udemy,Intermediate,17 hours,https://udemy.com/course/mongodb-the-complete-developers-guide
+24,33,AWS Certified Cloud Practitioner,Coursera,Beginner,12 hours,https://coursera.org/learn/aws-cloud-practitioner-essentials
+25,33,AWS Solutions Architect,Udemy,Advanced,26 hours,https://udemy.com/course/aws-certified-solutions-architect-associate-saa-c03
+26,33,AWS Cloud Fundamentals,edX,Intermediate,16 hours,https://edx.org/course/aws-fundamentals-going-cloud-native
+27,34,AZ-900 Azure Fundamentals,Udemy,Beginner,10 hours,https://udemy.com/course/az900-azure
+28,34,Azure Administrator,Coursera,Advanced,18 hours,https://coursera.org/specializations/azure-administration
+29,34,Microsoft Azure Fundamentals,edX,Beginner,8 hours,https://edx.org/course/microsoft-azure-fundamentals-az-900-exam-prep
+30,35,Google Cloud Fundamentals,Coursera,Beginner,8 hours,https://coursera.org/learn/gcp-fundamentals
+31,35,GCP Professional Cloud Architect,Udemy,Advanced,22 hours,https://udemy.com/course/google-cloud-professional-architect
+32,36,Terraform on AWS,Udemy,Intermediate,16 hours,https://udemy.com/course/terraform-beginner-to-advanced
+33,36,Infrastructure as Code with Terraform,Coursera,Advanced,14 hours,https://coursera.org/learn/terraform
+34,43,Deep Learning with TensorFlow,Coursera,Intermediate,18 hours,https://coursera.org/specializations/tensorflow-in-practice
+35,43,TensorFlow 2.0 Complete Course,YouTube,Beginner,7 hours,https://youtube.com/watch?v=tPYj3fFJGjk
+36,43,TF Developer Certificate Prep,Udemy,Advanced,22 hours,https://udemy.com/course/tensorflow-developer-certificate-machine-learning
+37,44,PyTorch for Deep Learning,Udemy,Intermediate,20 hours,https://udemy.com/course/pytorch-for-deep-learning-bootcamp
+38,44,Deep Learning with PyTorch,edX,Advanced,24 hours,https://edx.org/course/deep-learning-with-python-and-pytorch
+39,44,PyTorch Crash Course,YouTube,Beginner,3 hours,https://youtube.com/watch?v=V_xro1bcAuA
+40,45,Machine Learning with Scikit-Learn,Coursera,Intermediate,12 hours,https://coursera.org/learn/machine-learning-with-python
+41,45,Scikit-learn Crash Course,YouTube,Beginner,2 hours,https://youtube.com/watch?v=0B5eIE_1vpU
+42,48,NLP Specialization,Coursera,Advanced,22 hours,https://coursera.org/specializations/natural-language-processing
+43,48,NLP with Python,Udemy,Intermediate,14 hours,https://udemy.com/course/nlp-natural-language-processing-with-python
+44,48,NLP Zero to Hero,YouTube,Beginner,5 hours,https://youtube.com/playlist?list=PLQY2H8rRoyvzDbLUZkbudP-MFQZwNmU46
+45,52,Hugging Face Course,Hugging Face,Intermediate,10 hours,https://huggingface.co/course/chapter1
+46,52,NLP with Transformers,edX,Advanced,16 hours,https://edx.org/course/natural-language-processing-with-transformers
+47,55,Power BI Desktop,Udemy,Beginner,9 hours,https://udemy.com/course/microsoft-power-bi-up-running-with-power-bi-desktop
+48,55,Data Analysis with Power BI,Coursera,Intermediate,12 hours,https://coursera.org/learn/data-analysis-power-bi
+49,55,Power BI Full Course,YouTube,Intermediate,6 hours,https://youtube.com/watch?v=AGrl-H87pRU
+50,56,Tableau for Beginners,Udemy,Beginner,7 hours,https://udemy.com/course/tableau-for-beginners
+51,56,Data Visualisation with Tableau,Coursera,Intermediate,10 hours,https://coursera.org/specializations/data-visualization
+52,56,Tableau Full Tutorial,YouTube,Beginner,4 hours,https://youtube.com/watch?v=TPMlZxRRaBQ
+53,60,Apache Spark with Python,Udemy,Intermediate,14 hours,https://udemy.com/course/apache-spark-with-scala-hands-on-with-big-data
+54,60,Big Data with Spark and Hadoop,Coursera,Advanced,18 hours,https://coursera.org/learn/scala-spark-big-data
+55,60,Spark Tutorial for Beginners,YouTube,Beginner,3 hours,https://youtube.com/watch?v=F8pyaR4uQ2g
+56,73,Docker Mastery,Udemy,Intermediate,19 hours,https://udemy.com/course/docker-mastery
+57,73,Docker for Beginners,YouTube,Beginner,2 hours,https://youtube.com/watch?v=fqMOX6JJhGo
+58,73,Containerisation with Docker,Coursera,Intermediate,10 hours,https://coursera.org/learn/docker-for-the-absolute-beginner
+59,74,Kubernetes for the Absolute Beginners,Udemy,Beginner,6 hours,https://udemy.com/course/learn-kubernetes
+60,74,Kubernetes and Cloud Native Associate,Coursera,Advanced,20 hours,https://coursera.org/professional-certificates/google-cloud-devops-sre
+61,74,Kubernetes Crash Course,YouTube,Beginner,2 hours,https://youtube.com/watch?v=X48VuDVv0do
+62,75,Jenkins — From Zero to Hero,Udemy,Beginner,8 hours,https://udemy.com/course/jenkins-from-zero-to-hero
+63,75,CI/CD with Jenkins,edX,Intermediate,12 hours,https://edx.org/course/introduction-to-jenkins
+64,76,Git Complete,Udemy,Beginner,4 hours,https://udemy.com/course/git-complete
+65,76,Git and GitHub for Beginners,YouTube,Beginner,1 hour,https://youtube.com/watch?v=RGOj5yH7evk
+66,76,Git Version Control,Coursera,Intermediate,6 hours,https://coursera.org/learn/introduction-git-github
+67,83,Network Security Fundamentals,Coursera,Beginner,8 hours,https://coursera.org/learn/network-security-database-vulnerabilities
+68,83,CompTIA Security+ Prep,Udemy,Intermediate,16 hours,https://udemy.com/course/comptia-security-sy0-601
+69,84,Ethical Hacking Full Course,Udemy,Intermediate,20 hours,https://udemy.com/course/learn-ethical-hacking-from-scratch
+70,84,Penetration Testing Bootcamp,edX,Advanced,24 hours,https://edx.org/course/penetration-testing-with-kali-linux
+71,84,Kali Linux Tutorial,YouTube,Intermediate,5 hours,https://youtube.com/watch?v=lZAoFs75_cs
+72,85,OWASP Top 10,YouTube,Beginner,2 hours,https://youtube.com/watch?v=rWHvp7rUka8
+73,85,Web Application Security,Udemy,Intermediate,12 hours,https://udemy.com/course/the-complete-cyber-security-course-hackers-exposed
+74,85,Application Security Testing,Coursera,Advanced,14 hours,https://coursera.org/learn/software-security
+75,88,Certified Ethical Hacker (CEH),Udemy,Advanced,25 hours,https://udemy.com/course/certified-ethical-hacker
+76,88,Ethical Hacking Basics,YouTube,Beginner,3 hours,https://youtube.com/watch?v=3Kq1MIfTWCE
+77,88,Ethical Hacking Fundamentals,edX,Intermediate,16 hours,https://edx.org/course/cybersecurity-fundamentals
+78,65,Leadership Principles,Coursera,Intermediate,8 hours,https://coursera.org/learn/leadership-principles
+79,65,Inspiring and Motivating Individuals,Coursera,Advanced,10 hours,https://coursera.org/learn/motivate-people-teams
+80,65,Leadership Skills,YouTube,Beginner,2 hours,https://youtube.com/watch?v=vlCMc7DcIEk
+81,71,Agile with Atlassian Jira,Coursera,Beginner,6 hours,https://coursera.org/learn/agile-atlassian-jira
+82,71,Scrum Master Certification Prep,Udemy,Intermediate,10 hours,https://udemy.com/course/agile-scrum-master-certification
+83,71,Agile Fundamentals,NPTEL,Beginner,4 hours,https://nptel.ac.in/courses/106105247
+84,72,Project Management Fundamentals,Coursera,Beginner,8 hours,https://coursera.org/learn/project-management
+85,72,PMP Exam Prep,Udemy,Advanced,35 hours,https://udemy.com/course/pmp-pmbok6-exam-prep
+86,72,Project Management NPTEL,NPTEL,Intermediate,12 hours,https://nptel.ac.in/courses/110106127
+87,69,Time Management Bootcamp,NPTEL,Intermediate,8-12 hours,https://nptel.ac.in/courses/113523533
+88,87,Cryptography Masterclass,Coursera,Advanced,15-25 hours,https://coursera.org/learn/cryptography
+89,39,OpenStack Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/118661307
+90,37,CloudFormation Masterclass,edX,Advanced,15-25 hours,https://edx.org/course/cloudformation-fundamentals
+91,8,Scala Bootcamp,Coursera,Intermediate,8-12 hours,https://coursera.org/learn/scala
+92,32,Neo4j Bootcamp,Coursera,Intermediate,8-12 hours,https://coursera.org/learn/neo4j
+93,17,Perl Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/perl-complete-guide
+94,66,Communication Bootcamp,Udemy,Intermediate,8-12 hours,https://udemy.com/course/communication-complete-guide
+95,63,NumPy Bootcamp,edX,Intermediate,8-12 hours,https://edx.org/course/numpy-fundamentals
+96,46,Keras Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/keras-complete-guide
+97,6,Go Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=go+tutorial
+98,9,R Masterclass,YouTube,Advanced,15-25 hours,https://youtube.com/results?search_query=r+tutorial
+99,54,Generative AI Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/101455766
+100,8,Scala Masterclass,edX,Advanced,15-25 hours,https://edx.org/course/scala-fundamentals
+101,12,PHP Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/php-complete-guide
+102,67,Problem Solving Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=problem-solving+tutorial
+103,9,R Masterclass,Coursera,Advanced,15-25 hours,https://coursera.org/learn/r
+104,64,Matplotlib Bootcamp,Coursera,Intermediate,8-12 hours,https://coursera.org/learn/matplotlib
+105,26,Cassandra Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/cassandra-complete-guide
+106,8,Scala Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/scala-fundamentals
+107,15,Bash Scripting Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=bash-scripting+tutorial
+108,50,Reinforcement Learning Masterclass,YouTube,Advanced,15-25 hours,https://youtube.com/results?search_query=reinforcement-learning+tutorial
+109,81,Helm Bootcamp,Udemy,Intermediate,8-12 hours,https://udemy.com/course/helm-complete-guide
+110,86,SIEM Tools Bootcamp,NPTEL,Intermediate,8-12 hours,https://nptel.ac.in/courses/103817318
+111,58,Looker Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=looker+tutorial
+112,80,Grafana Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/grafana-complete-guide
+113,32,Neo4j Fundamentals,Coursera,Beginner,4-6 hours,https://coursera.org/learn/neo4j
+114,78,Ansible Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/111680290
+115,15,Bash Scripting Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/118142675
+116,13,Ruby Masterclass,Coursera,Advanced,15-25 hours,https://coursera.org/learn/ruby
+117,79,Prometheus Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/prometheus-complete-guide
+118,3,C++ Fundamentals,Coursera,Beginner,4-6 hours,https://coursera.org/learn/c++
+119,64,Matplotlib Bootcamp,YouTube,Intermediate,8-12 hours,https://youtube.com/results?search_query=matplotlib+tutorial
+120,81,Helm Masterclass,NPTEL,Advanced,15-25 hours,https://nptel.ac.in/courses/104316174
+121,14,C# Masterclass,edX,Advanced,15-25 hours,https://edx.org/course/c#-fundamentals
+122,26,Cassandra Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/cassandra-complete-guide
+123,16,MATLAB Masterclass,NPTEL,Advanced,15-25 hours,https://nptel.ac.in/courses/102757658
+124,82,ArgoCD Bootcamp,edX,Intermediate,8-12 hours,https://edx.org/course/argocd-fundamentals
+125,57,Excel Advanced Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/excel-advanced-complete-guide
+126,11,Swift Bootcamp,YouTube,Intermediate,8-12 hours,https://youtube.com/results?search_query=swift+tutorial
+127,25,Redis Masterclass,NPTEL,Advanced,15-25 hours,https://nptel.ac.in/courses/106389854
+128,8,Scala Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/scala-complete-guide
+129,87,Cryptography Bootcamp,NPTEL,Intermediate,8-12 hours,https://nptel.ac.in/courses/105267520
+130,66,Communication Fundamentals,Coursera,Beginner,4-6 hours,https://coursera.org/learn/communication
+131,29,Firebase Bootcamp,Udemy,Intermediate,8-12 hours,https://udemy.com/course/firebase-complete-guide
+132,62,Pandas Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/103876383
+133,8,Scala Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=scala+tutorial
+134,6,Go Masterclass,NPTEL,Advanced,15-25 hours,https://nptel.ac.in/courses/103174301
+135,26,Cassandra Masterclass,NPTEL,Advanced,15-25 hours,https://nptel.ac.in/courses/118441806
+136,41,DigitalOcean Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/digitalocean-complete-guide
+137,79,Prometheus Bootcamp,Coursera,Intermediate,8-12 hours,https://coursera.org/learn/prometheus
+138,26,Cassandra Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/112331381
+139,9,R Masterclass,NPTEL,Advanced,15-25 hours,https://nptel.ac.in/courses/115156978
+140,90,Zero Trust Security Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/106739037
+141,47,OpenCV Bootcamp,Udemy,Intermediate,8-12 hours,https://udemy.com/course/opencv-complete-guide
+142,47,OpenCV Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/opencv-complete-guide
+143,17,Perl Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/perl-fundamentals
+144,58,Looker Bootcamp,Coursera,Intermediate,8-12 hours,https://coursera.org/learn/looker
+145,87,Cryptography Bootcamp,NPTEL,Intermediate,8-12 hours,https://nptel.ac.in/courses/113279517
+146,78,Ansible Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/ansible-fundamentals
+147,15,Bash Scripting Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=bash-scripting+tutorial
+148,87,Cryptography Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/cryptography-complete-guide
+149,53,LangChain Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/118596489
+150,86,SIEM Tools Bootcamp,NPTEL,Intermediate,8-12 hours,https://nptel.ac.in/courses/100865479
+151,42,Heroku Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/heroku-complete-guide
+152,59,Google Analytics Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/google-analytics-complete-guide
+153,3,C++ Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/101593515
+154,70,Critical Thinking Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=critical-thinking+tutorial
+155,40,IBM Cloud Masterclass,NPTEL,Advanced,15-25 hours,https://nptel.ac.in/courses/103574419
+156,50,Reinforcement Learning Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/reinforcement-learning-complete-guide
+157,3,C++ Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/104475815
+158,29,Firebase Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/firebase-complete-guide
+159,49,Computer Vision Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/computer-vision-fundamentals
+160,58,Looker Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=looker+tutorial
+161,79,Prometheus Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/prometheus-complete-guide
+162,80,Grafana Masterclass,edX,Advanced,15-25 hours,https://edx.org/course/grafana-fundamentals
+163,63,NumPy Masterclass,Coursera,Advanced,15-25 hours,https://coursera.org/learn/numpy
+164,68,Teamwork Masterclass,edX,Advanced,15-25 hours,https://edx.org/course/teamwork-fundamentals
+165,42,Heroku Masterclass,edX,Advanced,15-25 hours,https://edx.org/course/heroku-fundamentals
+166,58,Looker Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/looker-complete-guide
+167,90,Zero Trust Security Masterclass,edX,Advanced,15-25 hours,https://edx.org/course/zero-trust-security-fundamentals
+168,67,Problem Solving Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/problem-solving-fundamentals
+169,38,Serverless Masterclass,NPTEL,Advanced,15-25 hours,https://nptel.ac.in/courses/101483329
+170,38,Serverless Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/serverless-complete-guide
+171,9,R Masterclass,YouTube,Advanced,15-25 hours,https://youtube.com/results?search_query=r+tutorial
+172,32,Neo4j Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/neo4j-complete-guide
+173,49,Computer Vision Masterclass,YouTube,Advanced,15-25 hours,https://youtube.com/results?search_query=computer-vision+tutorial
+174,77,CI/CD Bootcamp,Udemy,Intermediate,8-12 hours,https://udemy.com/course/ci-cd-complete-guide
+175,51,MLflow Bootcamp,NPTEL,Intermediate,8-12 hours,https://nptel.ac.in/courses/101166447
+176,38,Serverless Bootcamp,edX,Intermediate,8-12 hours,https://edx.org/course/serverless-fundamentals
+177,53,LangChain Bootcamp,Coursera,Intermediate,8-12 hours,https://coursera.org/learn/langchain
+178,82,ArgoCD Bootcamp,YouTube,Intermediate,8-12 hours,https://youtube.com/results?search_query=argocd+tutorial
+179,38,Serverless Fundamentals,Coursera,Beginner,4-6 hours,https://coursera.org/learn/serverless
+180,10,Kotlin Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/109180685
+181,11,Swift Bootcamp,Udemy,Intermediate,8-12 hours,https://udemy.com/course/swift-complete-guide
+182,14,C# Fundamentals,NPTEL,Beginner,4-6 hours,https://nptel.ac.in/courses/106645980
+183,63,NumPy Bootcamp,Coursera,Intermediate,8-12 hours,https://coursera.org/learn/numpy
+184,54,Generative AI Bootcamp,Udemy,Intermediate,8-12 hours,https://udemy.com/course/generative-ai-complete-guide
+185,46,Keras Bootcamp,Coursera,Intermediate,8-12 hours,https://coursera.org/learn/keras
+186,6,Go Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/go-complete-guide
+187,41,DigitalOcean Bootcamp,YouTube,Intermediate,8-12 hours,https://youtube.com/results?search_query=digitalocean+tutorial
+188,80,Grafana Bootcamp,edX,Intermediate,8-12 hours,https://edx.org/course/grafana-fundamentals
+189,68,Teamwork Masterclass,YouTube,Advanced,15-25 hours,https://youtube.com/results?search_query=teamwork+tutorial
+190,30,SQLite Fundamentals,YouTube,Beginner,4-6 hours,https://youtube.com/results?search_query=sqlite+tutorial
+191,80,Grafana Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/grafana-fundamentals
+192,29,Firebase Fundamentals,Coursera,Beginner,4-6 hours,https://coursera.org/learn/firebase
+193,47,OpenCV Masterclass,Udemy,Advanced,15-25 hours,https://udemy.com/course/opencv-complete-guide
+194,54,Generative AI Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/generative-ai-fundamentals
+195,69,Time Management Fundamentals,Udemy,Beginner,4-6 hours,https://udemy.com/course/time-management-complete-guide
+196,7,Rust Masterclass,edX,Advanced,15-25 hours,https://edx.org/course/rust-fundamentals
+197,27,Oracle DB Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/oracle-db-fundamentals
+198,69,Time Management Masterclass,Coursera,Advanced,15-25 hours,https://coursera.org/learn/time-management
+199,14,C# Bootcamp,edX,Intermediate,8-12 hours,https://edx.org/course/c#-fundamentals
+200,54,Generative AI Fundamentals,edX,Beginner,4-6 hours,https://edx.org/course/generative-ai-fundamentals
