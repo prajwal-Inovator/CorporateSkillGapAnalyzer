@@ -15,6 +15,9 @@ services:
         # Option 1: Use an external MySQL database (set the value in Render dashboard)
         # You will need to manually add this environment variable in Render Dashboard
         # value: mysql+pymysql://username:password@host:port/database_name
+        # If the password contains special characters like #, @, /, or ?, URL-encode them.
+        # Example: password "Prajwal#123" becomes "Prajwal%23123"
+        # mysql+pymysql://username:Prajwal%23123@host:port/database_name
         # Option 2: If using Render's PostgreSQL, change the URI format:
         # DATABASE_URL: postgresql://... (from Render's PostgreSQL service)
         sync: false  # Do not auto-generate; user must provide
