@@ -1,6 +1,5 @@
 # routes/upload_routes.py
 import os
-import pandas as pd
 from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app
 from flask_login import login_required
 from werkzeug.utils import secure_filename
