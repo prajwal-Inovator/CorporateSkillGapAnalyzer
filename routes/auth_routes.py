@@ -1,5 +1,5 @@
 # routes/auth_routes.py
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, current_app
 from flask_login import login_user, logout_user, login_required, current_user
 from db import db
 from models.user import User
@@ -46,44 +46,58 @@ def register():
         employee_code = request.form.get('employee_code')
         department_id = request.form.get('department_id')
         job_role_id = request.form.get('job_role_id')
-        
-        # Validation
-        if password != confirm:
-            flash('Passwords do not match', 'danger')
+
+        try:
+            # Validation
+            if password != confirm:
+                flash('Passwords do not match', 'danger')
+                return redirect(url_for('auth.register'))
+
+            if User.query.filter_by(email=email).first():
+                flash('Email already registered', 'danger')
+                return redirect(url_for('auth.register'))
+
+            if Employee.query.filter_by(employee_code=employee_code).first():
+                flash('Employee code already exists', 'danger')
+                return redirect(url_for('auth.register'))
+
+            # Create user
+            user = User(email=email, role='employee')
+            user.set_password(password)
+            db.session.add(user)
+            db.session.flush()  # to get user.id
+
+            # Create employee profile
+            employee = Employee(
+                user_id=user.id,
+                employee_code=employee_code,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                department_id=department_id if department_id else None,
+                job_role_id=job_role_id if job_role_id else None
+            )
+            db.session.add(employee)
+            db.session.commit()
+
+            flash('Registration successful! Please login.', 'success')
+            return redirect(url_for('auth.login'))
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error('Registration error: %s', e)
+            flash('Registration failed due to a server error. Please try again later.', 'danger')
             return redirect(url_for('auth.register'))
-        
-        if User.query.filter_by(email=email).first():
-            flash('Email already registered', 'danger')
-            return redirect(url_for('auth.register'))
-        
-        if Employee.query.filter_by(employee_code=employee_code).first():
-            flash('Employee code already exists', 'danger')
-            return redirect(url_for('auth.register'))
-        
-        # Create user
-        user = User(email=email, role='employee')
-        user.set_password(password)
-        db.session.add(user)
-        db.session.flush()  # to get user.id
-        
-        # Create employee profile
-        employee = Employee(
-            user_id=user.id,
-            employee_code=employee_code,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            department_id=department_id if department_id else None,
-            job_role_id=job_role_id if job_role_id else None
-        )
-        db.session.add(employee)
-        db.session.commit()
-        
-        flash('Registration successful! Please login.', 'success')
-        return redirect(url_for('auth.login'))
-    
-    departments = Department.query.all()
-    job_roles = JobRole.query.all()
+
+    try:
+        departments = Department.query.all()
+        job_roles = JobRole.query.all()
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error('Failed to load registration options: %s', e)
+        flash('Unable to load registration options. Please contact the administrator.', 'danger')
+        departments = []
+        job_roles = []
+
     return render_template('register.html', departments=departments, job_roles=job_roles)
 
 @auth_bp.route('/logout')

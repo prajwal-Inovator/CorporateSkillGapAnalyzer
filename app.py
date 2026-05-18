@@ -82,6 +82,12 @@ def create_app():
     app.register_blueprint(analytics_bp, url_prefix='/analytics')
     app.register_blueprint(recommendation_bp, url_prefix='/recommendation')
     app.register_blueprint(upload_bp, url_prefix='/upload')
+
+    with app.app_context():
+        try:
+            db.create_all()
+        except Exception as e:
+            app.logger.warning('Unable to create database tables on startup: %s', e)
     
     @app.route('/login')
     def login_redirect():
