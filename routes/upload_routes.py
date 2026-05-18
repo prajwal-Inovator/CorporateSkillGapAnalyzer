@@ -16,6 +16,7 @@ from utils.csv_handler import (
     process_job_roles_csv,
     process_role_required_skills_csv,
     process_training_resources_csv,
+    process_all_dataset_files,
 )
 
 upload_bp = Blueprint('upload', __name__)
@@ -33,6 +34,23 @@ def upload_csv():
         return redirect(url_for('index'))
     
     if request.method == 'POST':
+        if 'import_all' in request.form:
+            dataset_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'datasets'))
+            result = process_all_dataset_files(dataset_dir)
+            if result.get('error'):
+                flash(result['error'], 'danger')
+            else:
+                messages = []
+                for filename, item in result.items():
+                    if item.get('skipped'):
+                        continue
+                    messages.append(f"{filename}: {item['success']} added, {item['errors']} errors")
+                if messages:
+                    flash('Imported dataset files: ' + '; '.join(messages), 'success')
+                else:
+                    flash('No dataset files were found in the repository datasets folder.', 'warning')
+            return redirect(url_for('admin.dashboard'))
+
         if 'file' not in request.files:
             flash('No file part', 'danger')
             return redirect(request.url)

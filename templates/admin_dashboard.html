@@ -37,6 +37,14 @@
     </div>
 </div>
 
+<div class="alert alert-{{ 'success' if repo_datasets_loaded else 'warning' }}" role="alert">
+    {% if repo_datasets_loaded %}
+        Repository dataset files appear to be loaded in the database.
+    {% else %}
+        Repository dataset files are not fully imported yet. Use the CSV upload page and click "Import all datasets from repository folder".
+    {% endif %}
+</div>
+
 <div class="card mt-4">
     <div class="card-header">
         <h5>Recent Employees</h5>

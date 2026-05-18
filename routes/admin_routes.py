@@ -28,12 +28,22 @@ def dashboard():
     total_skills = Skill.query.count()
     total_departments = Department.query.count()
     total_job_roles = JobRole.query.count()
+    total_employee_skills = EmployeeSkill.query.count()
     recent_employees = Employee.query.order_by(Employee.created_at.desc()).limit(5).all()
+
+    repo_datasets_loaded = all([
+        total_employees > 0,
+        total_skills > 0,
+        total_job_roles > 0,
+        total_employee_skills > 0,
+    ])
     return render_template('admin_dashboard.html',
                           total_employees=total_employees,
                           total_skills=total_skills,
                           total_departments=total_departments,
                           total_job_roles=total_job_roles,
+                          total_employee_skills=total_employee_skills,
+                          repo_datasets_loaded=repo_datasets_loaded,
                           recent_employees=recent_employees)
 
 @admin_bp.route('/employees')

@@ -62,6 +62,7 @@ def create_app():
     from models.role_required_skill import RoleRequiredSkill
     from models.training_resource import TrainingResource
     from models.gap_analysis import GapAnalysis
+    from utils.csv_handler import process_all_dataset_files
     
     # User loader for Flask-Login
     @login_manager.user_loader
@@ -118,6 +119,14 @@ def create_app():
                 db.session.add_all(job_roles)
                 db.session.commit()
                 app.logger.warning('Created default job roles')
+
+            if Employee.query.count() == 0 or Skill.query.count() == 0 or JobRole.query.count() == 0 or EmployeeSkill.query.count() == 0 or RoleRequiredSkill.query.count() == 0:
+                dataset_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'datasets')
+                import_result = process_all_dataset_files(dataset_dir)
+                if isinstance(import_result, dict) and import_result.get('error'):
+                    app.logger.warning('Dataset auto-import failed: %s', import_result['error'])
+                else:
+                    app.logger.warning('Imported repository datasets on startup: %s', import_result)
         except Exception as e:
             app.logger.warning('Unable to create database tables or seed startup data: %s', e)
     
