@@ -22,7 +22,11 @@ def create_app():
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
     
     # Database configuration
-    database_url = os.environ.get('DATABASE_URL', 'mysql+pymysql://root:root@localhost/corporate_skill_gap')
+    database_url = os.environ.get('DATABASE_URL')
+    if not database_url:
+        sqlite_db_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'corporate_skill_gap.db')
+        database_url = f"sqlite:///{sqlite_db_path}"
+        app.logger.warning('DATABASE_URL is not set; using fallback SQLite database at %s', sqlite_db_path)
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
@@ -42,6 +46,11 @@ def create_app():
 
     # Allow trailing slash variants for routes to reduce accidental 404s
     app.url_map.strict_slashes = False
+
+    # Auto-create tables when using the local SQLite fallback database
+    if database_url.startswith('sqlite:'):
+        with app.app_context():
+            db.create_all()
     
     # Import models (must be after db initialization to avoid circular imports)
     from models.user import User
@@ -105,7 +114,7 @@ def create_app():
     def internal_error(e):
         db.session.rollback()
         flash('An internal error occurred. Please try again later.', 'danger')
-        return render_template('404.html'), 500
+        return render_template('500.html'), 500
     
     # Context processor to inject current year and user into all templates
     @app.context_processor
