@@ -1,7 +1,7 @@
 # routes/upload_routes.py
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, current_app
-from flask_login import login_required
+from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from db import db
 from models.employee import Employee
