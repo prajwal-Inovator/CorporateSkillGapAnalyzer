@@ -39,6 +39,9 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'  # redirect to login page if not authenticated
     login_manager.login_message_category = 'warning'
+
+    # Allow trailing slash variants for routes to reduce accidental 404s
+    app.url_map.strict_slashes = False
     
     # Import models (must be after db initialization to avoid circular imports)
     from models.user import User
@@ -71,6 +74,18 @@ def create_app():
     app.register_blueprint(recommendation_bp, url_prefix='/recommendation')
     app.register_blueprint(upload_bp, url_prefix='/upload')
     
+    @app.route('/login')
+    def login_redirect():
+        return redirect(url_for('auth.login'))
+
+    @app.route('/register')
+    def register_redirect():
+        return redirect(url_for('auth.register'))
+
+    @app.route('/logout')
+    def logout_redirect():
+        return redirect(url_for('auth.logout'))
+
     # Homepage route
     @app.route('/')
     def index():
