@@ -32,18 +32,26 @@
                             <label for="department_id" class="form-label">Department</label>
                             <select class="form-select" id="department_id" name="department_id">
                                 <option value="">Select</option>
-                                {% for dept in departments %}
-                                <option value="{{ dept.id }}">{{ dept.name }}</option>
-                                {% endfor %}
+                                {% if departments %}
+                                    {% for dept in departments %}
+                                    <option value="{{ dept.id }}">{{ dept.name }}</option>
+                                    {% endfor %}
+                                {% else %}
+                                    <option disabled>No departments available</option>
+                                {% endif %}
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="job_role_id" class="form-label">Job Role</label>
                             <select class="form-select" id="job_role_id" name="job_role_id">
                                 <option value="">Select</option>
-                                {% for role in job_roles %}
-                                <option value="{{ role.id }}">{{ role.title }}</option>
-                                {% endfor %}
+                                {% if job_roles %}
+                                    {% for role in job_roles %}
+                                    <option value="{{ role.id }}">{{ role.title }}</option>
+                                    {% endfor %}
+                                {% else %}
+                                    <option disabled>No job roles available</option>
+                                {% endif %}
                             </select>
                         </div>
                     </div>

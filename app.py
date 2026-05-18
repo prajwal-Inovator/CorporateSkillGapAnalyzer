@@ -86,8 +86,40 @@ def create_app():
     with app.app_context():
         try:
             db.create_all()
+
+            if not User.query.filter_by(role='admin').first():
+                admin_email = os.environ.get('ADMIN_EMAIL', 'admin@example.com')
+                admin_password = os.environ.get('ADMIN_PASSWORD', 'admin123')
+                admin = User(email=admin_email, role='admin')
+                admin.set_password(admin_password)
+                db.session.add(admin)
+                db.session.commit()
+                app.logger.warning('Created default admin user: %s', admin_email)
+
+            if Department.query.count() == 0:
+                departments = [
+                    Department(name='Engineering', description='Engineering and development'),
+                    Department(name='Human Resources', description='HR and people operations'),
+                    Department(name='Sales', description='Sales and customer success'),
+                ]
+                db.session.add_all(departments)
+                db.session.commit()
+                app.logger.warning('Created default departments')
+
+            if JobRole.query.count() == 0:
+                engineering = Department.query.filter_by(name='Engineering').first()
+                hr = Department.query.filter_by(name='Human Resources').first()
+                sales = Department.query.filter_by(name='Sales').first()
+                job_roles = [
+                    JobRole(title='Software Engineer', department_id=engineering.id if engineering else None, description='Software development role'),
+                    JobRole(title='HR Manager', department_id=hr.id if hr else None, description='HR management role'),
+                    JobRole(title='Sales Representative', department_id=sales.id if sales else None, description='Sales representative role'),
+                ]
+                db.session.add_all(job_roles)
+                db.session.commit()
+                app.logger.warning('Created default job roles')
         except Exception as e:
-            app.logger.warning('Unable to create database tables on startup: %s', e)
+            app.logger.warning('Unable to create database tables or seed startup data: %s', e)
     
     @app.route('/login')
     def login_redirect():

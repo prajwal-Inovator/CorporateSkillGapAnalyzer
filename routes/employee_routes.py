@@ -52,9 +52,17 @@ def profile():
 @login_required
 def my_skills():
     employee = Employee.query.filter_by(user_id=current_user.id).first()
+    if not employee:
+        flash('Employee profile not found', 'danger')
+        return redirect(url_for('index'))
+
     if request.method == 'POST':
         skill_id = request.form.get('skill_id')
         proficiency = request.form.get('proficiency')
+        if not skill_id or not proficiency:
+            flash('Please choose a skill and proficiency level.', 'warning')
+            return redirect(url_for('employee.my_skills'))
+
         existing = EmployeeSkill.query.filter_by(employee_id=employee.id, skill_id=skill_id).first()
         if existing:
             existing.proficiency_level = proficiency
