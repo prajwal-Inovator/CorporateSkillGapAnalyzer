@@ -46,6 +46,7 @@ def register():
         employee_code = request.form.get('employee_code')
         department_id = request.form.get('department_id')
         job_role_id = request.form.get('job_role_id')
+        role = request.form.get('role', 'employee') or 'employee'
 
         try:
             # Validation
@@ -61,8 +62,11 @@ def register():
                 flash('Employee code already exists', 'danger')
                 return redirect(url_for('auth.register'))
 
+            if role not in ['employee', 'admin']:
+                role = 'employee'
+
             # Create user
-            user = User(email=email, role='employee')
+            user = User(email=email, role=role)
             user.set_password(password)
             db.session.add(user)
             db.session.flush()  # to get user.id

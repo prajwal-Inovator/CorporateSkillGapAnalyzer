@@ -5,7 +5,7 @@
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-success text-white">
-                <h4 class="mb-0"><i class="fas fa-user-plus"></i> Register as Employee</h4>
+                <h4 class="mb-0"><i class="fas fa-user-plus"></i> Register</h4>
             </div>
             <div class="card-body">
                 <form method="POST">
@@ -22,6 +22,14 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Register as</label>
+                        <select class="form-select" id="role" name="role">
+                            <option value="employee" selected>Employee</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <div class="form-text">Choose Admin only if you need administrative access.</div>
                     </div>
                     <div class="mb-3">
                         <label for="employee_code" class="form-label">Employee Code</label>

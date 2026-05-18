@@ -17,7 +17,7 @@ def my_recommendations():
         flash('Employee profile not found', 'danger')
         return redirect(url_for('index'))
     
-    recommendations = employee.recommendations.all()
+    recommendations = EmployeeRecommendation.query.filter_by(employee_id=employee.id).all()
     return render_template('recommendations.html', recommendations=recommendations)
 
 @recommendation_bp.route('/generate/<int:employee_id>')
@@ -36,8 +36,14 @@ def generate(employee_id):
 @login_required
 def complete(rec_id):
     rec = EmployeeRecommendation.query.get_or_404(rec_id)
+    if current_user.role == 'admin':
+        rec.status = 'completed'
+        db.session.commit()
+        flash('Training marked as completed', 'success')
+        return redirect(url_for('recommendation.my_recommendations'))
+
     employee = Employee.query.filter_by(user_id=current_user.id).first()
-    if rec.employee_id != employee.id and current_user.role != 'admin':
+    if not employee or rec.employee_id != employee.id:
         flash('Unauthorized', 'danger')
         return redirect(url_for('index'))
     rec.status = 'completed'
