@@ -39,95 +39,147 @@ document.addEventListener('DOMContentLoaded', function() {
     // ========================
     // Only run if we are on a page with chart canvases
     
-    // Department Gap Chart (if exists)
+    const chartErrorMessage = (container, message) => {
+        const parent = container.parentElement;
+        if (!parent) return;
+        parent.innerHTML = `<div class="text-center text-muted p-4">${message}</div>`;
+    };
+
+    const validateChartData = (data, labelKey, valueKey) => {
+        if (!data || !Array.isArray(data[labelKey]) || !Array.isArray(data[valueKey])) {
+            return false;
+        }
+        return data[labelKey].length > 0 && data[valueKey].length > 0;
+    };
+
+    const renderDepartmentGapChart = (data) => {
+        if (!validateChartData(data, 'labels', 'values')) {
+            chartErrorMessage(deptGapCanvas, 'No department gap data available.');
+            return;
+        }
+        new Chart(deptGapCanvas, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Average Gap Score',
+                    data: data.values,
+                    backgroundColor: '#0d6efd',
+                    borderRadius: 6,
+                    barPercentage: 0.7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: { callbacks: { label: (ctx) => `Gap: ${parseFloat(ctx.raw).toFixed(1)}` } }
+                },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Gap Score' } },
+                    x: { title: { display: true, text: 'Departments' } }
+                }
+            }
+        });
+    };
+
+    const renderMissingSkillsChart = (data) => {
+        if (!validateChartData(data, 'labels', 'counts')) {
+            chartErrorMessage(missingSkillsCanvas, 'No missing skills data available.');
+            return;
+        }
+        new Chart(missingSkillsCanvas, {
+            type: 'pie',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.counts,
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'right' },
+                    tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} employees missing` } }
+                }
+            }
+        });
+    };
+
+    const renderReadinessChart = (data) => {
+        if (!validateChartData(data, 'labels', 'counts')) {
+            chartErrorMessage(readinessCanvas, 'No readiness data available.');
+            return;
+        }
+        new Chart(readinessCanvas, {
+            type: 'doughnut',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    data: data.counts,
+                    backgroundColor: ['#dc3545', '#ffc107', '#0d6efd', '#198754'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} employees` } }
+                }
+            }
+        });
+    };
+
     const deptGapCanvas = document.getElementById('deptGapChart');
     if (deptGapCanvas) {
         fetch('/analytics/data/department_gaps')
             .then(response => response.json())
             .then(data => {
-                new Chart(deptGapCanvas, {
-                    type: 'bar',
-                    data: {
-                        labels: data.labels,
-                        datasets: [{
-                            label: 'Average Gap Score',
-                            data: data.values,
-                            backgroundColor: '#0d6efd',
-                            borderRadius: 6,
-                            barPercentage: 0.7
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                            legend: { position: 'top' },
-                            tooltip: { callbacks: { label: (ctx) => `Gap: ${ctx.raw.toFixed(1)}` } }
-                        },
-                        scales: {
-                            y: { beginAtZero: true, title: { display: true, text: 'Gap Score' } },
-                            x: { title: { display: true, text: 'Departments' } }
-                        }
-                    }
-                });
+                if (data.error) {
+                    console.error('Department gaps error:', data.error);
+                }
+                renderDepartmentGapChart(data);
             })
-            .catch(error => console.error('Error loading department gaps:', error));
+            .catch(error => {
+                console.error('Error loading department gaps:', error);
+                chartErrorMessage(deptGapCanvas, 'Unable to load department gap data.');
+            });
     }
-    
-    // Top Missing Skills Chart (pie)
+
     const missingSkillsCanvas = document.getElementById('missingSkillsChart');
     if (missingSkillsCanvas) {
         fetch('/analytics/data/top_missing_skills')
             .then(response => response.json())
             .then(data => {
-                new Chart(missingSkillsCanvas, {
-                    type: 'pie',
-                    data: {
-                        labels: data.labels,
-                        datasets: [{
-                            data: data.counts,
-                            backgroundColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { position: 'right' },
-                            tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} employees missing` } }
-                        }
-                    }
-                });
+                if (data.error) {
+                    console.error('Missing skills error:', data.error);
+                }
+                renderMissingSkillsChart(data);
             })
-            .catch(error => console.error('Error loading missing skills:', error));
+            .catch(error => {
+                console.error('Error loading missing skills:', error);
+                chartErrorMessage(missingSkillsCanvas, 'Unable to load missing skills data.');
+            });
     }
-    
-    // Readiness Distribution Chart (doughnut)
+
     const readinessCanvas = document.getElementById('readinessChart');
     if (readinessCanvas) {
         fetch('/analytics/data/readiness_distribution')
             .then(response => response.json())
             .then(data => {
-                new Chart(readinessCanvas, {
-                    type: 'doughnut',
-                    data: {
-                        labels: data.labels,
-                        datasets: [{
-                            data: data.counts,
-                            backgroundColor: ['#dc3545', '#ffc107', '#0d6efd', '#198754'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: { position: 'bottom' },
-                            tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw} employees` } }
-                        }
-                    }
-                });
+                if (data.error) {
+                    console.error('Readiness distribution error:', data.error);
+                }
+                renderReadinessChart(data);
             })
-            .catch(error => console.error('Error loading readiness distribution:', error));
+            .catch(error => {
+                console.error('Error loading readiness distribution:', error);
+                chartErrorMessage(readinessCanvas, 'Unable to load readiness distribution data.');
+            });
     }
     
     // ========================

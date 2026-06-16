@@ -14,16 +14,26 @@ def dashboard():
 @analytics_bp.route('/data/department_gaps')
 @login_required
 def department_gaps():
-    data = generate_department_gaps()
-    return jsonify(data)
+    try:
+        data = generate_department_gaps()
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({'labels': ['No data'], 'values': [0], 'error': str(e)}), 200
 
 @analytics_bp.route('/data/top_missing_skills')
 @login_required
 def top_missing_skills():
-    data = generate_top_missing_skills()
-    return jsonify(data)
+    try:
+        data = generate_top_missing_skills()
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({'labels': ['No data'], 'counts': [0], 'error': str(e)}), 200
 
 @analytics_bp.route('/data/readiness_distribution')
 @login_required
 def readiness_distribution():
-    return jsonify(generate_readiness_distribution())
+    try:
+        data = generate_readiness_distribution()
+        return jsonify(data)
+    except Exception as e:
+        return jsonify({'labels': ['No data'], 'counts': [1], 'error': str(e)}), 200
