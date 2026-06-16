@@ -128,13 +128,6 @@ def create_app():
                     app.logger.warning('Dataset auto-import failed: %s', import_result['error'])
                 else:
                     app.logger.warning('Imported repository datasets on startup: %s', import_result)
-
-            if GapAnalysis.query.count() == 0 and Employee.query.count() > 0 and RoleRequiredSkill.query.count() > 0:
-                try:
-                    calculate_all_gaps()
-                    app.logger.warning('Generated gap analysis records on startup')
-                except Exception as e:
-                    app.logger.warning('Gap calculation on startup failed: %s', e)
         except Exception as e:
             app.logger.warning('Unable to create database tables or seed startup data: %s', e)
     
@@ -170,6 +163,23 @@ def create_app():
         db.session.rollback()
         flash('An internal error occurred. Please try again later.', 'danger')
         return render_template('500.html'), 500
+
+    @app.before_first_request
+    def trigger_gap_analysis_after_startup():
+        from utils.skill_gap_engine import calculate_all_gaps
+        import threading
+
+        def run_gap_analysis():
+            with app.app_context():
+                if GapAnalysis.query.count() == 0 and Employee.query.count() > 0 and RoleRequiredSkill.query.count() > 0:
+                    try:
+                        calculate_all_gaps()
+                        app.logger.warning('Generated gap analysis records after startup')
+                    except Exception as e:
+                        app.logger.warning('Gap calculation after startup failed: %s', e)
+
+        thread = threading.Thread(target=run_gap_analysis, daemon=True)
+        thread.start()
     
     # Context processor to inject current year and user into all templates
     @app.context_processor
