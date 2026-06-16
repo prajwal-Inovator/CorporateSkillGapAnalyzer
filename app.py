@@ -164,9 +164,7 @@ def create_app():
         flash('An internal error occurred. Please try again later.', 'danger')
         return render_template('500.html'), 500
 
-    @app.before_serving
-    def trigger_gap_analysis_after_startup():
-        from utils.skill_gap_engine import calculate_all_gaps
+    def schedule_gap_analysis_background():
         import threading
 
         def run_gap_analysis():
@@ -180,7 +178,9 @@ def create_app():
 
         thread = threading.Thread(target=run_gap_analysis, daemon=True)
         thread.start()
-    
+
+    schedule_gap_analysis_background()
+
     # Context processor to inject current year and user into all templates
     @app.context_processor
     def utility_processor():
