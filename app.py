@@ -164,7 +164,7 @@ def create_app():
         flash('An internal error occurred. Please try again later.', 'danger')
         return render_template('500.html'), 500
 
-    @app.before_first_request
+    @app.before_serving
     def trigger_gap_analysis_after_startup():
         from utils.skill_gap_engine import calculate_all_gaps
         import threading
