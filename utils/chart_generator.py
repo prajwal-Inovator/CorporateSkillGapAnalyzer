@@ -18,32 +18,43 @@ def generate_department_gaps():
     Returns:
     dict: {'labels': [dept_names], 'values': [avg_gap_scores]}
     """
-    departments = Department.query.all()
-    labels = []
-    avg_gaps = []
-    
-    for dept in departments:
-        # Get all employees in this department
-        employees = Employee.query.filter_by(department_id=dept.id).all()
-        if not employees:
-            labels.append(dept.name)
-            avg_gaps.append(0)
-            continue
-        
-        total_gap_sum = 0
-        total_skills_count = 0
-        
-        for emp in employees:
-            # Sum all gap scores for this employee
-            gaps = GapAnalysis.query.filter_by(employee_id=emp.id).all()
-            total_gap_sum += sum((g.gap_score or 0) for g in gaps)
-            total_skills_count += len(gaps)
+    try:
+        departments = Department.query.all()
+        if not departments:
+            return {'labels': [], 'values': []}
 
-        avg = (total_gap_sum / total_skills_count) if total_skills_count > 0 else 0
-        labels.append(dept.name)
-        avg_gaps.append(round(avg, 2))
+        labels = []
+        avg_gaps = []
 
-    return {'labels': labels, 'values': avg_gaps}
+        for dept in departments:
+            try:
+                employees = Employee.query.filter_by(department_id=dept.id).all()
+                if not employees:
+                    labels.append(dept.name)
+                    avg_gaps.append(0)
+                    continue
+
+                total_gap_sum = 0
+                total_skills_count = 0
+
+                for emp in employees:
+                    try:
+                        gaps = GapAnalysis.query.filter_by(employee_id=emp.id).all()
+                        total_gap_sum += sum((g.gap_score or 0) for g in gaps)
+                        total_skills_count += len(gaps)
+                    except Exception:
+                        continue
+
+                avg = (total_gap_sum / total_skills_count) if total_skills_count > 0 else 0
+                labels.append(dept.name)
+                avg_gaps.append(round(avg, 2))
+            except Exception:
+                labels.append(dept.name)
+                avg_gaps.append(0)
+
+        return {'labels': labels, 'values': avg_gaps}
+    except Exception:
+        return {'labels': [], 'values': []}
 
 
 def generate_top_missing_skills(limit=5):
@@ -56,21 +67,24 @@ def generate_top_missing_skills(limit=5):
     Returns:
     dict: {'labels': [skill_names], 'counts': [missing_counts]}
     """
-    from sqlalchemy import func
+    try:
+        from sqlalchemy import func
 
-    results = db.session.query(
-        Skill.name,
-        func.count(GapAnalysis.id).label('missing_count')
-    ).join(GapAnalysis, GapAnalysis.skill_id == Skill.id) \
-     .filter(GapAnalysis.gap_score == 2) \
-     .group_by(Skill.id) \
-     .order_by(func.count(GapAnalysis.id).desc()) \
-     .limit(limit).all()
+        results = db.session.query(
+            Skill.name,
+            func.count(GapAnalysis.id).label('missing_count')
+        ).join(GapAnalysis, GapAnalysis.skill_id == Skill.id) \
+         .filter(GapAnalysis.gap_score == 2) \
+         .group_by(Skill.id) \
+         .order_by(func.count(GapAnalysis.id).desc()) \
+         .limit(limit).all()
 
-    labels = [r[0] for r in results]
-    counts = [r[1] for r in results]
+        labels = [r[0] for r in results] if results else []
+        counts = [r[1] for r in results] if results else []
 
-    return {'labels': labels, 'counts': counts}
+        return {'labels': labels, 'counts': counts}
+    except Exception:
+        return {'labels': [], 'counts': []}
 
 
 def generate_readiness_distribution():
@@ -83,32 +97,39 @@ def generate_readiness_distribution():
         'counts': [counts_in_each_range]
     }
     """
-    employees = Employee.query.all()
-    ranges = {
-        '0-25%': 0,
-        '26-50%': 0,
-        '51-75%': 0,
-        '76-100%': 0
-    }
-    
-    for emp in employees:
-        try:
-            score = emp.get_readiness_score()
-        except Exception:
-            score = 0
-        if score <= 25:
-            ranges['0-25%'] += 1
-        elif score <= 50:
-            ranges['26-50%'] += 1
-        elif score <= 75:
-            ranges['51-75%'] += 1
-        else:
-            ranges['76-100%'] += 1
-    
-    return {
-        'labels': list(ranges.keys()),
-        'counts': list(ranges.values())
-    }
+    try:
+        employees = Employee.query.all()
+        if not employees:
+            return {'labels': ['0-25%', '26-50%', '51-75%', '76-100%'], 'counts': [0, 0, 0, 0]}
+
+        ranges = {
+            '0-25%': 0,
+            '26-50%': 0,
+            '51-75%': 0,
+            '76-100%': 0
+        }
+
+        for emp in employees:
+            try:
+                score = emp.get_readiness_score()
+            except Exception:
+                score = 0
+
+            if score <= 25:
+                ranges['0-25%'] += 1
+            elif score <= 50:
+                ranges['26-50%'] += 1
+            elif score <= 75:
+                ranges['51-75%'] += 1
+            else:
+                ranges['76-100%'] += 1
+
+        return {
+            'labels': list(ranges.keys()),
+            'counts': list(ranges.values())
+        }
+    except Exception:
+        return {'labels': ['0-25%', '26-50%', '51-75%', '76-100%'], 'counts': [0, 0, 0, 0]}
 
 
 def generate_skill_coverage_by_department():

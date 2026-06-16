@@ -136,8 +136,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const deptGapCanvas = document.getElementById('deptGapChart');
     if (deptGapCanvas) {
-        fetch('/analytics/data/department_gaps')
-            .then(response => response.json())
+        fetch('/analytics/data/department_gaps', { credentials: 'same-origin' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.error) {
                     console.error('Department gaps error:', data.error);
@@ -152,8 +157,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const missingSkillsCanvas = document.getElementById('missingSkillsChart');
     if (missingSkillsCanvas) {
-        fetch('/analytics/data/top_missing_skills')
-            .then(response => response.json())
+        fetch('/analytics/data/top_missing_skills', { credentials: 'same-origin' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.error) {
                     console.error('Missing skills error:', data.error);
@@ -168,8 +178,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const readinessCanvas = document.getElementById('readinessChart');
     if (readinessCanvas) {
-        fetch('/analytics/data/readiness_distribution')
-            .then(response => response.json())
+        fetch('/analytics/data/readiness_distribution', { credentials: 'same-origin' })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.error) {
                     console.error('Readiness distribution error:', data.error);
