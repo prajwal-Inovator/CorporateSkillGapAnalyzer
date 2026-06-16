@@ -6,6 +6,20 @@
     <a href="{{ url_for('admin.add_employee') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Employee</a>
 </div>
 
+<form class="row g-2 mb-4" method="GET" action="{{ url_for('admin.employees') }}">
+    <div class="col-md-8">
+        <input type="search" name="search" class="form-control" placeholder="Search by name, email, code..." value="{{ search_query|default('') }}">
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-secondary">Search</button>
+    </div>
+    {% if search_query %}
+    <div class="col-auto">
+        <a href="{{ url_for('admin.employees') }}" class="btn btn-outline-secondary">Clear</a>
+    </div>
+    {% endif %}
+</form>
+
 <div class="card">
     <div class="card-body">
         <table class="table table-hover">
@@ -30,23 +44,27 @@
             </tbody>
         </table>
 
+        {% if not employees.items %}
+        <div class="alert alert-info mb-3">No employees found for the current search.</div>
+        {% endif %}
+
         <!-- Pagination -->
         <nav>
             <ul class="pagination">
                 {% if employees.has_prev %}
-                <li class="page-item"><a class="page-link" href="{{ url_for('admin.employees', page=employees.prev_num) }}">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="{{ url_for('admin.employees', page=employees.prev_num, search=search_query) }}">Previous</a></li>
                 {% endif %}
                 {% for page_num in employees.iter_pages() %}
                     {% if page_num %}
                         <li class="page-item {% if page_num == employees.page %}active{% endif %}">
-                            <a class="page-link" href="{{ url_for('admin.employees', page=page_num) }}">{{ page_num }}</a>
+                            <a class="page-link" href="{{ url_for('admin.employees', page=page_num, search=search_query) }}">{{ page_num }}</a>
                         </li>
                     {% else %}
                         <li class="page-item disabled"><span class="page-link">...</span></li>
                     {% endif %}
                 {% endfor %}
                 {% if employees.has_next %}
-                <li class="page-item"><a class="page-link" href="{{ url_for('admin.employees', page=employees.next_num) }}">Next</a></li>
+                <li class="page-item"><a class="page-link" href="{{ url_for('admin.employees', page=employees.next_num, search=search_query) }}">Next</a></li>
                 {% endif %}
             </ul>
         </nav>

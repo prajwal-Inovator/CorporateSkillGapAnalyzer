@@ -1,6 +1,7 @@
 # routes/admin_routes.py
 from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
 from flask_login import login_required, current_user
+from sqlalchemy import or_
 from db import db
 from models.employee import Employee
 from models.department import Department
@@ -51,9 +52,22 @@ def dashboard():
 @admin_required
 def employees():
     page = request.args.get('page', 1, type=int)
+    search_query = request.args.get('search', '').strip()
     per_page = 10
-    employees = Employee.query.order_by(Employee.created_at.desc()).paginate(page=page, per_page=per_page)
-    return render_template('employees.html', employees=employees)
+
+    query = Employee.query
+    if search_query:
+        query = query.filter(
+            or_(
+                Employee.employee_code.ilike(f'%{search_query}%'),
+                Employee.first_name.ilike(f'%{search_query}%'),
+                Employee.last_name.ilike(f'%{search_query}%'),
+                Employee.email.ilike(f'%{search_query}%')
+            )
+        )
+
+    employees = query.order_by(Employee.created_at.desc()).paginate(page=page, per_page=per_page)
+    return render_template('employees.html', employees=employees, search_query=search_query)
 
 @admin_bp.route('/add_employee', methods=['GET', 'POST'])
 @login_required
@@ -106,11 +120,17 @@ def edit_employee(id):
         employee.last_name = request.form.get('last_name')
         employee.email = request.form.get('email')
         employee.phone = request.form.get('phone')
-        employee.department_id = request.form.get('department_id')
-        employee.job_role_id = request.form.get('job_role_id')
-        employee.joining_date = request.form.get('joining_date')
-        db.session.commit()
-        flash('Employee updated', 'success')
+        employee.department_id = request.form.get('department_id') or None
+        employee.job_role_id = request.form.get('job_role_id') or None
+        joining_date = request.form.get('joining_date')
+        employee.joining_date = joining_date if joining_date else None
+        try:
+            db.session.commit()
+            flash('Employee updated', 'success')
+        except Exception:
+            db.session.rollback()
+            flash('Failed to update employee. Please check the data and try again.', 'danger')
+            return redirect(url_for('admin.edit_employee', id=id))
         return redirect(url_for('admin.employees'))
     
     departments = Department.query.all()

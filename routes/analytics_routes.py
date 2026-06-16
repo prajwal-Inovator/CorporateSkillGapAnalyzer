@@ -1,12 +1,8 @@
 # routes/analytics_routes.py
 from flask import Blueprint, render_template, jsonify
 from flask_login import login_required
-from db import db
 from models.employee import Employee
-from models.skill import Skill
-from models.employee_skill import EmployeeSkill
-from models.role_required_skill import RoleRequiredSkill
-from utils.chart_generator import generate_department_gaps, generate_top_missing_skills
+from utils.chart_generator import generate_department_gaps, generate_top_missing_skills, generate_readiness_distribution
 
 analytics_bp = Blueprint('analytics', __name__)
 
@@ -30,14 +26,4 @@ def top_missing_skills():
 @analytics_bp.route('/data/readiness_distribution')
 @login_required
 def readiness_distribution():
-    employees = Employee.query.all()
-    readiness = [emp.get_readiness_score() for emp in employees]
-    return jsonify({
-        'labels': ['0-25%', '26-50%', '51-75%', '76-100%'],
-        'counts': [
-            sum(1 for r in readiness if r <= 25),
-            sum(1 for r in readiness if 26 <= r <= 50),
-            sum(1 for r in readiness if 51 <= r <= 75),
-            sum(1 for r in readiness if r >= 76)
-        ]
-    })
+    return jsonify(generate_readiness_distribution())
