@@ -1,4 +1,5 @@
 # models/employee.py
+import difflib
 from db import db
 from datetime import datetime
 
@@ -40,10 +41,45 @@ class Employee(db.Model):
         
         required_skills = RoleRequiredSkill.query.filter_by(job_role_id=self.job_role_id).all()
         if not required_skills:
+            required_skills = self._get_fallback_required_skills()
+        if not required_skills:
             return 100
         required_skill_ids = [rs.skill_id for rs in required_skills]
         owned_skills = EmployeeSkill.query.filter_by(employee_id=self.id).filter(EmployeeSkill.skill_id.in_(required_skill_ids)).count()
         return round((owned_skills / len(required_skills)) * 100, 1)
+
+    def _get_fallback_required_skills(self):
+        from models.role_required_skill import RoleRequiredSkill
+        from models.job_role import JobRole
+        import difflib
+
+        if not self.job_role or not self.job_role.title:
+            return []
+
+        title = self.job_role.title.strip()
+        if not title:
+            return []
+
+        candidate_roles = JobRole.query.join(RoleRequiredSkill).group_by(JobRole.id).all()
+        if not candidate_roles:
+            return []
+
+        titles = [role.title for role in candidate_roles]
+        lower_titles = [t.lower() for t in titles]
+        matches = difflib.get_close_matches(title.lower(), lower_titles, n=1, cutoff=0.4)
+        if matches:
+            matched_title = next((t for t in titles if t.lower() == matches[0]), None)
+            if matched_title:
+                fallback_role = next((role for role in candidate_roles if role.title == matched_title), None)
+                if fallback_role:
+                    return RoleRequiredSkill.query.filter_by(job_role_id=fallback_role.id).all()
+
+        for role in candidate_roles:
+            role_title_lower = role.title.lower()
+            if title.lower() in role_title_lower or role_title_lower in title.lower():
+                return RoleRequiredSkill.query.filter_by(job_role_id=role.id).all()
+
+        return []
     
     def __repr__(self):
         return f'<Employee {self.employee_code}>'

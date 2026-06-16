@@ -18,6 +18,7 @@ from utils.csv_handler import (
     process_training_resources_csv,
     process_all_dataset_files,
 )
+from utils.skill_gap_engine import calculate_all_gaps
 
 upload_bp = Blueprint('upload', __name__)
 
@@ -40,6 +41,10 @@ def upload_csv():
             if result.get('error'):
                 flash(result['error'], 'danger')
             else:
+                try:
+                    calculate_all_gaps()
+                except Exception:
+                    pass
                 messages = []
                 for filename, item in result.items():
                     if item.get('skipped'):
@@ -65,26 +70,37 @@ def upload_csv():
             
             # Process based on file type
             lower_name = filename.lower()
+            recalc = False
             if 'employee_skills' in lower_name:
                 result = process_employee_skills_csv(filepath)
+                recalc = True
                 flash(f'Employee skills imported: {result["success"]} added, {result["errors"]} errors', 'success')
             elif 'role_required_skills' in lower_name:
                 result = process_role_required_skills_csv(filepath)
+                recalc = True
                 flash(f'Role required skills imported: {result["success"]} added, {result["errors"]} errors', 'success')
             elif 'training_resources' in lower_name:
                 result = process_training_resources_csv(filepath)
                 flash(f'Training resources imported: {result["success"]} added, {result["errors"]} errors', 'success')
             elif 'job_roles' in lower_name:
                 result = process_job_roles_csv(filepath)
+                recalc = True
                 flash(f'Job roles imported: {result["success"]} added, {result["errors"]} errors', 'success')
             elif 'skills' in lower_name and 'role_required_skills' not in lower_name:
                 result = process_skills_csv(filepath)
+                recalc = True
                 flash(f'Skills imported: {result["success"]} added, {result["errors"]} errors', 'success')
             elif 'employee' in lower_name and 'employee_skills' not in lower_name:
                 result = process_employee_csv(filepath)
+                recalc = True
                 flash(f'Employees imported: {result["success"]} added, {result["errors"]} errors', 'success')
             else:
                 flash('Unrecognized CSV type. Use filename containing one of: employee, skills, job_roles, employee_skills, role_required_skills, training_resources', 'warning')
+            if recalc:
+                try:
+                    calculate_all_gaps()
+                except Exception:
+                    pass
             os.remove(filepath)
             return redirect(url_for('admin.employees'))
         else:

@@ -9,6 +9,7 @@ from models.job_role import JobRole
 from models.skill import Skill
 from models.user import User
 from models.employee_skill import EmployeeSkill
+from utils.skill_gap_engine import calculate_gap_for_employee
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -103,6 +104,7 @@ def add_employee():
         )
         db.session.add(employee)
         db.session.commit()
+        calculate_gap_for_employee(employee.id)
         flash('Employee added successfully', 'success')
         return redirect(url_for('admin.employees'))
     
@@ -126,6 +128,7 @@ def edit_employee(id):
         employee.joining_date = joining_date if joining_date else None
         try:
             db.session.commit()
+            calculate_gap_for_employee(employee.id)
             flash('Employee updated', 'success')
         except Exception:
             db.session.rollback()

@@ -63,7 +63,8 @@ def create_app():
     from models.training_resource import TrainingResource
     from models.gap_analysis import GapAnalysis
     from utils.csv_handler import process_all_dataset_files
-    
+    from utils.skill_gap_engine import calculate_all_gaps
+
     # User loader for Flask-Login
     @login_manager.user_loader
     def load_user(user_id):
@@ -127,6 +128,13 @@ def create_app():
                     app.logger.warning('Dataset auto-import failed: %s', import_result['error'])
                 else:
                     app.logger.warning('Imported repository datasets on startup: %s', import_result)
+
+            if GapAnalysis.query.count() == 0 and Employee.query.count() > 0 and RoleRequiredSkill.query.count() > 0:
+                try:
+                    calculate_all_gaps()
+                    app.logger.warning('Generated gap analysis records on startup')
+                except Exception as e:
+                    app.logger.warning('Gap calculation on startup failed: %s', e)
         except Exception as e:
             app.logger.warning('Unable to create database tables or seed startup data: %s', e)
     

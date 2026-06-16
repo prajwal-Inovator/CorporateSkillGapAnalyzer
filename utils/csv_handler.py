@@ -6,6 +6,7 @@ Uses Python built-in csv parsing.
 """
 
 import csv
+import difflib
 import os
 from datetime import datetime
 from db import db
@@ -21,6 +22,45 @@ def _read_csv_rows(filepath):
     with open(filepath, newline='', encoding='utf-8-sig') as csvfile:
         reader = csv.DictReader(csvfile)
         return [row for row in reader if any((value or '').strip() for value in row.values())]
+
+
+def _normalize_text(value):
+    return str(value or '').strip().lower()
+
+
+def _find_job_role_by_title(title):
+    normalized_title = _normalize_text(title)
+    if not normalized_title:
+        return None
+
+    # Try exact or case-insensitive matches first
+    job_role = JobRole.query.filter(JobRole.title.ilike(normalized_title)).first()
+    if job_role:
+        return job_role
+
+    job_role = JobRole.query.filter(JobRole.title.ilike(f'%{normalized_title}%')).first()
+    if job_role:
+        return job_role
+
+    # Fallback to closest string match against existing roles
+    titles = [jr.title for jr in JobRole.query.all()]
+    matches = difflib.get_close_matches(normalized_title, titles, n=1, cutoff=0.4)
+    if matches:
+        return JobRole.query.filter_by(title=matches[0]).first()
+
+    return None
+
+
+def _find_department_by_name(name):
+    normalized_name = _normalize_text(name)
+    if not normalized_name:
+        return None
+
+    department = Department.query.filter(Department.name.ilike(normalized_name)).first()
+    if department:
+        return department
+
+    return Department.query.filter(Department.name.ilike(f'%{normalized_name}%')).first()
 
 
 def process_employee_csv(filepath):
@@ -68,22 +108,18 @@ def process_employee_csv(filepath):
                 continue
             
             # Find or create department
-            department = None
-            if dept_name:
-                department = Department.query.filter_by(name=dept_name).first()
-                if not department:
-                    department = Department(name=dept_name)
-                    db.session.add(department)
-                    db.session.flush()
+            department = _find_department_by_name(dept_name)
+            if dept_name and not department:
+                department = Department(name=dept_name)
+                db.session.add(department)
+                db.session.flush()
 
             # Find or create job role
-            job_role = None
-            if job_title:
-                job_role = JobRole.query.filter_by(title=job_title).first()
-                if not job_role:
-                    job_role = JobRole(title=job_title, department_id=department.id if department else None)
-                    db.session.add(job_role)
-                    db.session.flush()
+            job_role = _find_job_role_by_title(job_title)
+            if job_title and not job_role:
+                job_role = JobRole(title=job_title, department_id=department.id if department else None)
+                db.session.add(job_role)
+                db.session.flush()
             
             # Create a user account for the employee (default password = 'employee123')
             # Check if user already exists with same email
@@ -518,13 +554,11 @@ def process_dataset_employees_csv(filepath):
                     db.session.add(department)
                     db.session.flush()
 
-            job_role = None
-            if designation:
-                job_role = JobRole.query.filter_by(title=designation).first()
-                if not job_role:
-                    job_role = JobRole(title=designation, department_id=department.id if department else None)
-                    db.session.add(job_role)
-                    db.session.flush()
+            job_role = _find_job_role_by_title(designation)
+            if designation and not job_role:
+                job_role = JobRole(title=designation, department_id=department.id if department else None)
+                db.session.add(job_role)
+                db.session.flush()
 
             existing = Employee.query.filter((Employee.email == email) | (Employee.employee_code == dataset_employee_id)).first()
             if existing:

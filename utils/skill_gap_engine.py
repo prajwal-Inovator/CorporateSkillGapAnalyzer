@@ -4,8 +4,10 @@ Skill Gap Calculation Engine
 Computes missing skills and gap scores for each employee.
 """
 
+import difflib
 from db import db
 from models.employee import Employee
+from models.job_role import JobRole
 from models.role_required_skill import RoleRequiredSkill
 from models.employee_skill import EmployeeSkill
 from models.gap_analysis import GapAnalysis
@@ -34,7 +36,12 @@ def calculate_gap_for_employee(employee_id):
     
     # Get all required skills for this employee's job role
     required_skills = RoleRequiredSkill.query.filter_by(job_role_id=employee.job_role_id).all()
-    
+    if not required_skills and employee.job_role:
+        fallback_role = _find_similar_role_with_requirements(employee.job_role.title)
+        if fallback_role:
+            print(f"Employee {employee_id} role '{employee.job_role.title}' has no direct required skills. Falling back to '{fallback_role.title}' for gap calculation.")
+            required_skills = RoleRequiredSkill.query.filter_by(job_role_id=fallback_role.id).all()
+
     # Build a dictionary of employee's current skills: {skill_id: proficiency_level}
     employee_skills_dict = {}
     for es in employee.employee_skills:
@@ -80,6 +87,26 @@ def calculate_gap_for_employee(employee_id):
     # Save all changes to the database
     db.session.commit()
     print(f"Gap analysis completed for employee {employee_id}")
+
+
+def _find_similar_role_with_requirements(role_title):
+    if not role_title:
+        return None
+    normalized_title = role_title.strip().lower()
+    candidate_roles = JobRole.query.join(RoleRequiredSkill).group_by(JobRole.id).all()
+    if not candidate_roles:
+        return None
+
+    titles = [role.title for role in candidate_roles]
+    matches = difflib.get_close_matches(normalized_title, titles, n=1, cutoff=0.4)
+    if matches:
+        return next((role for role in candidate_roles if role.title == matches[0]), None)
+
+    for role in candidate_roles:
+        title_lower = role.title.lower()
+        if normalized_title in title_lower or title_lower in normalized_title:
+            return role
+    return None
 
 
 def calculate_all_gaps():
