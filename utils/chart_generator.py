@@ -36,13 +36,13 @@ def generate_department_gaps():
         for emp in employees:
             # Sum all gap scores for this employee
             gaps = GapAnalysis.query.filter_by(employee_id=emp.id).all()
-            total_gap_sum += sum(g.gap_score for g in gaps)
+            total_gap_sum += sum((g.gap_score or 0) for g in gaps)
             total_skills_count += len(gaps)
-        
+
         avg = (total_gap_sum / total_skills_count) if total_skills_count > 0 else 0
         labels.append(dept.name)
         avg_gaps.append(round(avg, 2))
-    
+
     return {'labels': labels, 'values': avg_gaps}
 
 
@@ -56,8 +56,8 @@ def generate_top_missing_skills(limit=5):
     Returns:
     dict: {'labels': [skill_names], 'counts': [missing_counts]}
     """
-    # Query gaps with major gap (score=2) and count per skill
     from sqlalchemy import func
+
     results = db.session.query(
         Skill.name,
         func.count(GapAnalysis.id).label('missing_count')
@@ -66,10 +66,10 @@ def generate_top_missing_skills(limit=5):
      .group_by(Skill.id) \
      .order_by(func.count(GapAnalysis.id).desc()) \
      .limit(limit).all()
-    
+
     labels = [r[0] for r in results]
     counts = [r[1] for r in results]
-    
+
     return {'labels': labels, 'counts': counts}
 
 
@@ -92,7 +92,10 @@ def generate_readiness_distribution():
     }
     
     for emp in employees:
-        score = emp.get_readiness_score()
+        try:
+            score = emp.get_readiness_score()
+        except Exception:
+            score = 0
         if score <= 25:
             ranges['0-25%'] += 1
         elif score <= 50:

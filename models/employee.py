@@ -44,8 +44,16 @@ class Employee(db.Model):
             required_skills = self._get_fallback_required_skills()
         if not required_skills:
             return 100
+
         required_skill_ids = [rs.skill_id for rs in required_skills]
-        owned_skills = EmployeeSkill.query.filter_by(employee_id=self.id).filter(EmployeeSkill.skill_id.in_(required_skill_ids)).count()
+        if not required_skill_ids:
+            return 100
+
+        try:
+            owned_skills = EmployeeSkill.query.filter_by(employee_id=self.id).filter(EmployeeSkill.skill_id.in_(required_skill_ids)).count()
+        except Exception:
+            return 0
+
         return round((owned_skills / len(required_skills)) * 100, 1)
 
     def _get_fallback_required_skills(self):
